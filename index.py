@@ -2,6 +2,7 @@ import pygame
 import time
 import sys
 from grid import Grid
+from Blocks import *
 
 pygame.init()
 
@@ -17,9 +18,12 @@ clock = pygame.time.Clock()
 game_grid = Grid()
 game_grid.print_grid()
 #set colours of cell relative to index of 
-game_grid.grid[0][0] = 1
+
 game_grid.grid[3][5] = 4
 game_grid.grid[17][8] = 7
+
+block = LBlock()
+
 
 
 
@@ -31,6 +35,7 @@ while True:
             
     screen.fill(dark_blue)
     game_grid.draw(screen)
+    block.draw(screen)
     pygame.display.update()
     clock.tick(60)
 
