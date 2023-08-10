@@ -13,8 +13,6 @@ pygame.display.set_caption("Tetris")
 
 clock = pygame.time.Clock() 
 game = Game()
-block = IBlock()
-
 
 while True:
     for event in pygame.event.get():
@@ -24,7 +22,6 @@ while True:
             
     screen.fill(dark_blue)  
     game.draw(screen)
-    block.draw(screen)
     
     pygame.display.update()
     clock.tick(60)

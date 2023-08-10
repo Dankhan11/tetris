@@ -20,7 +20,7 @@ class Game:
         return block
 
     def draw(self, screen):
-        self.current_block.draw(screen)
         self.grid.draw(screen)
+        self.current_block.draw(screen)
         
       
