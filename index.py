@@ -1,9 +1,7 @@
 import pygame
-import time
 import sys
-from grid import Grid
+from game import Game
 from Blocks import *
-
 pygame.init()
 
 WIN_WIDTH = 300
@@ -14,17 +12,8 @@ screen = pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
 pygame.display.set_caption("Tetris")
 
 clock = pygame.time.Clock() 
-
-game_grid = Grid()
-game_grid.print_grid()
-#set colours of cell relative to index of 
-
-game_grid.grid[3][5] = 4
-game_grid.grid[17][8] = 7
-
-block = LBlock()
-
-
+game = Game()
+block = IBlock()
 
 
 while True:
@@ -33,9 +22,10 @@ while True:
             pygame.quit()
             sys.exit()
             
-    screen.fill(dark_blue)
-    game_grid.draw(screen)
+    screen.fill(dark_blue)  
+    game.draw(screen)
     block.draw(screen)
+    
     pygame.display.update()
     clock.tick(60)
 
