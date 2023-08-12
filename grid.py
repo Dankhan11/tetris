@@ -16,7 +16,25 @@ class Grid:
                 print(self.grid[row][column], end = " ")
             print()
     
+    def is_empty(self, row, column):
+        if self.grid[row][column] == 0:
+            return True
+        return False   
     
+    def is_row_full(self,row):
+        #loop through columns in each row checking if it is full 
+        for column in range(self.num_columns):
+            if self.grid[row][column] == 0: #if empty
+                return False
+        return True
+                
+                
+    def clear_row(self,row):
+        for column in range(self.num_columns):
+            self.grid[row][column] = 0
+                       
+
+             
         
     def draw(self,screen):
         
