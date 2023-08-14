@@ -33,8 +33,24 @@ class Grid:
         for column in range(self.num_columns):
             self.grid[row][column] = 0
                        
-
+    def move_row_down(self,row, num_rows):
+        for column in range(self.num_columns):
+            self.grid[row + num_rows][column] = self.grid[row][column]
+            self.grid[row][column] = 0
+    
+    def clear_full_row(self):
+        completed = 0
+        for row in range(self.num_rows -1, 0, -1):#iterates through rows in reverse 
+            if self.is_row_full(row):
+                completed += 1
+            elif completed > 0:
+                self.move_row_down(row, completed)
+        return completed
              
+    def reset(self):
+        for row in range(self.num_rows):
+            for column in range(self.num_columns):
+                self.grid[row][column] = 0
         
     def draw(self,screen):
         
@@ -42,7 +58,7 @@ class Grid:
         for row in range(self.num_rows):
             for column in range(self.num_columns):
                 cell_value = self.grid[row][column]
-                cell_rect = pygame.Rect(column*self.cell_size + 1,row*self.cell_size + 1,self.cell_size -1 ,self.cell_size -1 )
+                cell_rect = pygame.Rect(column*self.cell_size + 11,row*self.cell_size + 11,self.cell_size -1 ,self.cell_size -1 )
                 pygame.draw.rect(screen,self.color[cell_value],cell_rect )
                 
     def is_inside(self, row, column):

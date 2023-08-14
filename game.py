@@ -6,7 +6,7 @@ class Game:
     def __init__(self):
         self.grid = Grid()
         self.blocks = [IBlock(), JBlock(), ZBlock(), OBlock(), SBlock(), TBlock(), LBlock()]
-
+        self.game_over = False
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
     
@@ -47,6 +47,10 @@ class Game:
             
         self.current_block = self.next_block
         self.next_block = self.get_random_block()
+        self.grid.clear_full_row()
+        #checking if game needs to be ended
+        if self.block_fits() == False:
+            self.game_over = True
                 
         
           #check if block is still within the grid boundaries
@@ -61,6 +65,13 @@ class Game:
         self.current_block.rotate()
         if self.block_inside() == False or self.block_fits() == False:
             self.current_block.undo_rotation()
+            
+    def reset(self):
+        self.grid.reset()
+        self.blocks = [IBlock(), JBlock(), ZBlock(), OBlock(), SBlock(), TBlock(), LBlock()]
+        self.current_block = self.get_random_block()
+        self.next_block = self.get_random_block()
+         
     
     def block_fits(self):
         tiles = self.current_block.get_cell_position()
@@ -69,19 +80,8 @@ class Game:
            if self.grid.is_empty(tile.row,tile.column) == False:
                return False
         return True
+
     
-    def move_row_down(self, row, num_rows):
-       for column in range(self.num_columns):
-           #copies value of original row to the new row
-           self.grid[row+num_rows][column] = self.grid[row][column]
-           self.grid[row][column] = 0
-           
-    def clear_full_row(self):
-        completed = 0
-        for row in range(self.num_rows -1, 0, -1):#iterates through rows in reverse 
-            if self.is_row_full(row):
-                self.clear_full_row(row)
-                completed += 1
         
            
     def draw(self, screen):
